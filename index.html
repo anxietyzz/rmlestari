@@ -11,6 +11,20 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+  <script>
+    // Fallback: jika AOS gagal load setelah 3 detik, set semua [data-aos] ke visible
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        if (typeof AOS === 'undefined') {
+          document.querySelectorAll('[data-aos]').forEach(function(el) {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+            el.removeAttribute('data-aos');
+          });
+        }
+      }, 3000);
+    });
+  </script>
 </head>
 <body>
 
@@ -589,14 +603,16 @@
   <a href="https://wa.me/6282171710055" class="floating-wa" title="Chat WhatsApp">💬</a>
 
   <script>
-    // Initialize AOS animations
+    // Initialize AOS animations (with mobile-friendly defaults)
     if (typeof AOS !== 'undefined') {
       AOS.init({
-        duration: 800,
+        duration: 600,
         easing: 'ease-out-cubic',
-        once: false,
-        offset: 80,
+        once: true,
+        offset: 40,
         anchorPlacement: 'top-bottom',
+        disable: false,
+        startEvent: 'DOMContentLoaded',
       });
     }
 
